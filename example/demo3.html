@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script type="module">
+  import PromiseYang from '../src/Promise.js'
+
+  const promise = new PromiseYang((resolve, reject) => {
+    console.log('~~~1')
+    resolve('hello')
+    // setTimeout(function() {
+    //
+    // }, 1000)
+  })
+
+  promise.then(res => {
+    console.log('~~~~2')
+    console.log(res)
+    return new PromiseYang((resolve, reject) => {
+      resolve('11112222')
+    })
+  })
+    .then(data => {
+      console.log(data)
+    })
+
+  console.log('~~~~3')
+</script>
+</body>
+</html>

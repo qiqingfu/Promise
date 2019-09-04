@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script type="module">
+
+  import PromiseYang from '../src/Promise.js'
+
+  const promise = new PromiseYang((resolve, reject) => {
+    setTimeout(function() {
+      resolve('wait 2000')
+    }, 2000)
+  })
+
+  promise.then((data) => {
+    console.log(data)
+  })
+
+</script>
+</body>
+</html>

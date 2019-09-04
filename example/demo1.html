@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script type="module">
+
+  import PromiseYang from '../src/Promise.js'
+
+  const promise = new PromiseYang((resolve, reject) => {
+    resolve('success~')
+    resolve('success1~')
+    resolve('success2~')
+    reject('error~')
+  })
+
+  promise.then(function(data) {
+    console.log(data)
+  }, function (err) {
+    console.log(err)
+  })
+
+</script>
+</body>
+</html>
