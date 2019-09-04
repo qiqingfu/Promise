@@ -16,7 +16,7 @@ export function isFunction(item) {
   if (typeof item === 'function') {
     return true
   }
-  if(item === undefined) return false
+  if(item === undefined || item === null) return false
   const type = toString.call(item)
   return type === '[object Function]' || type === '[object GeneratorFunction]'
 }

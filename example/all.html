@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script type="module">
+
+  import PromiseYang from '../src/Promise.js'
+
+  function getUser() {
+    return new PromiseYang((resolve, reject) => {
+      setTimeout(function() {
+        resolve('getUser success')
+      }, 2000)
+    })
+  }
+
+  function getList() {
+    return new PromiseYang((resolve, reject) => {
+      setTimeout(function() {
+        resolve('getList success')
+      }, 500)
+    })
+  }
+
+  PromiseYang.all([getUser(), getList()])
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
+</script>
+</body>
+</html>

@@ -135,6 +135,71 @@ class PromiseYang {
      */
     return promise2
   }
+
+  catch(onRejected) {
+    return this.then(null, onRejected)
+  }
+}
+
+/**
+ * Delayed promise object, see example demo5.html
+ * @type {function()}
+ */
+PromiseYang.defer = PromiseYang.deferred = function() {
+  const dfd = {}
+  const promise = new PromiseYang((resolve, reject) => {
+    dfd.resolve = resolve
+    dfd.reject = reject
+  })
+  dfd.promise = () => {
+    return promise
+  }
+
+  return dfd
+}
+
+PromiseYang.resolve = function(value) {
+  return new PromiseYang((resolve, reject) => {
+    resolve(value)
+  })
+}
+
+PromiseYang.reject = function(reason) {
+  return new PromiseYang((resolve, reject) => {
+    reject(reason)
+  })
+}
+
+/**
+ * Method is used to wrap multiple Promise instances into a new Promise instance.
+ * @param promises {Array}
+ */
+PromiseYang.all = function(promises) {
+  return new PromiseYang((resolve, reject) => {
+    const caches = []
+    let i = 0
+
+    for(let k = 0; k < promises.length; k++) {
+      promises[k].then(res => {
+        processData(k, res)
+      }, reject)
+    }
+
+    function processData(index, result) {
+      caches[index] = result
+      if(++i === promises.length) {
+        resolve(caches)
+      }
+    }
+  })
+}
+
+PromiseYang.race = function(promises) {
+  return new PromiseYang((resolve, reject) => {
+    for(let i = 0; i < promises.length; i++) {
+      promises[i].then(resolve, reject)
+    }
+  })
 }
 
 export default PromiseYang

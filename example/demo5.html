@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script type="module">
+
+  import PromiseYang from '../src/Promise.js'
+
+  function getUser() {
+    const dfd = PromiseYang.defer()
+    setTimeout(function() {
+      dfd.resolve('success!!')
+    }, 2000)
+
+    return dfd.promise()
+  }
+
+  getUser()
+    .then(res => {
+      console.log(res)
+    })
+
+</script>
+</body>
+</html>

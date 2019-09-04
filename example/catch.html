@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script type="module">
+
+  import PromiseYang from '../src/Promise.js'
+
+  function getJson() {
+    return new PromiseYang((resolve, reject) => {
+      const states = false
+      if (states) {
+        resolve('success!')
+      } else {
+        reject(new Error('error!'))
+      }
+    })
+  }
+
+  // getJson()
+  //   .then(res => {
+  //     console.log(res)
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //   })
+
+  // getJson()
+  //   .then(res => {
+  //     console.log(res)
+  //   })
+  //   .then(null, error => {
+  //     console.log(error)
+  //   })
+
+  getJson()
+    .then(res => {
+      console.log(res)
+    }, err => {
+      console.log(err)
+    })
+    .catch(e => {
+      console.log(e)
+    })
+
+</script>
+</body>
+</html>
