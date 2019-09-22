@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script type="module">
+
+
+    import PromiseYang from "../src/Promise.js"
+
+
+    new PromiseYang((resolve, reject) => {
+      resolve('123')
+    })
+      .then(res => {
+        return new PromiseYang((resolve) => {
+          resolve("then return promise")
+        })
+      })
+      .then(r => {
+        return new PromiseYang((resolve) => {
+          resolve("then2 return promise")
+        })
+          .then(res1 => {
+            return new PromiseYang(resolve => {
+              resolve(res1)
+            })
+          })
+      })
+      .then(res => {
+        console.log(res)
+      })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="module">
+
+    import PromiseYang from "../src/Promise.js"
+
+    const p1 = new PromiseYang((resolve, reject) => {
+      setTimeout(() => reject(new Error('fail')), 3000)
+    })
+
+    const p2 = new PromiseYang((resolve, reject) => {
+      setTimeout(() => resolve(p1))
+    })
+
+    p2
+        .then(res => console.log(res))
+        .catch()
+</script>
+</body>
+</html>

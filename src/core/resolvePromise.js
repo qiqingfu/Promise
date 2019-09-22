@@ -21,7 +21,7 @@ export function resolvePromise(promise2, x, resolve, reject) {
   if (x !== null && x !== undefined && (type(x) === 'object' || isFunction(x))) {
     try {
       /**
-       * x may be a promise
+       * x may be a promise, promise have then in prototype
        */
       let then = x.then
       if (isFunction(then)) {
@@ -29,11 +29,11 @@ export function resolvePromise(promise2, x, resolve, reject) {
          * x is a promise
          * If a promise is returned, the result of promise is taken as the parameter of the next one.
          */
-        then.call(x, y => {
+        then.call(x, r => {
           if (called) return
           called = true
 
-          resolvePromise(promise2, y, resolve, reject)
+          resolvePromise(promise2, r, resolve, reject)
         }, err => {
           if (called) return
           called = true
