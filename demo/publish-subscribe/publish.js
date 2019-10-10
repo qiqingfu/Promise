@@ -3,33 +3,39 @@
  * @date 2019-09-03 21:59
  */
 
-const fs = require('fs')
-
 const event = {
-  hooks: [],
-  result: [],
+  list: {},
   // 订阅
-  on: function(cb) {
-    this.hooks.push(cb)
+  on: function(key,fn) {
+    if (!this.list[key]) {
+      this.list[key] = []
+    }
+
+    this.list[key].push(fn)
   },
-  emit: function(data) {
-    this.result.push(data)
-    this.hooks.forEach(hook => hook(this.result))
+  // 发布
+  emit: function() {
+    const key = Array.prototype.shift.call(arguments)
+    const fns = this.list[key]
+
+    if (!fns || fns.length === 0) {
+      return false
+    }
+
+    fns.forEach(fn => {
+      fn.apply(this, arguments)
+    })
   }
 }
 
-event.on(function(data) {
-  if (data.length === 2) {
-    console.log('end!')
-    console.log(data)
-  }
+// 测试
+event.on('a', function(name) {
+  console.log(name)
 })
 
-fs.readFile('./a.txt', 'utf-8', (err, data) => {
-  event.emit(data)
+event.on('b', function(age) {
+  console.log(age)
 })
 
-fs.readFile('./b.txt', 'utf-8', (err, data) => {
-  event.emit(data)
-})
-
+event.emit('a', 'zhangsan')
+event.emit('b', 23)
