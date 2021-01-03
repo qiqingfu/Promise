@@ -82,6 +82,9 @@ class PromiseYang {
             /**
              * The return value of the previous promise then successfully callback
              * will be accepted as the value of the new promise
+             *
+             * 1. 未处理, resolve() 的值是一个 Promise 对象, 并且是异步的 demo 示例参见 demo9.html
+             * 这时 onFulfilled 传入的结果应该是 Promise 解析后的值
              */
             let x = onFulfilled.call(self, self.value)
             resolvePromise(promise2, x, resolve, reject)
@@ -159,7 +162,7 @@ PromiseYang.defer = PromiseYang.deferred = function() {
 }
 
 PromiseYang.resolve = function(value) {
-  return new PromiseYang((resolve, reject) => {
+  return new PromiseYang((resolve) => {
     resolve(value)
   })
 }
