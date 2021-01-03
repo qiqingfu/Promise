@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="module">
+  import PromiseYang from "../src/Promise.js"
+
+  // const p1 = new PromiseYang((resolve, reject) => {
+  //   setTimeout(() => {
+  //     resolve('3000 ms')
+  //   }, 3000)
+  // })
+  //
+  // const p2 = PromiseYang.resolve(p1)
+  //
+  // p2.then((data) => {
+  //   console.log(data)
+  // })
+
+  const p1 = new PromiseYang((resolve) => {
+    resolve("1")
+  })
+
+  const p2 = p1.then((data) => {
+    return new PromiseYang((resolve) => {
+      resolve(new PromiseYang((r) => {
+        setTimeout(() => {
+          r("2000ms")
+        }, 2000)
+      }))
+    })
+  })
+
+  p2.then((res) => {
+    console.log(res)
+  }, err => {
+    console.log(err)
+  })
+
+</script>
+</body>
+</html>
